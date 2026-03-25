@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       messages = [{ role: 'system', content: parsed.system }, ...messages];
     }
     const groqBody = {
-      model: 'llama3-70b-8192',
+      model: 'llama-3.3-70b-versatile',
       max_tokens: parsed.max_tokens || 200,
       messages: messages,
     };
