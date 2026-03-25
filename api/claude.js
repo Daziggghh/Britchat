@@ -10,7 +10,6 @@ export default async function handler(req, res) {
     for await (const chunk of req) body += chunk;
     const parsed = JSON.parse(body);
 
-    // Build Gemini prompt from messages + system
     let prompt = '';
     if (parsed.system) prompt = parsed.system + '\n\n';
     const messages = parsed.messages || [];
@@ -21,7 +20,7 @@ export default async function handler(req, res) {
     prompt += 'Assistant:';
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyCOzG_O76WJnqNW1itRsvJs0avmmkXj8_s`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCOzG_O76WJnqNW1itRsvJs0avmmkXj8_s`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
