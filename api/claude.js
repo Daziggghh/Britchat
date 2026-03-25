@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     prompt += 'Assistant:';
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyCOzG_O76WJnqNW1itRsvJs0avmmkXj8_s`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
     if (text) {
       return res.status(200).json({ content: [{ text }] });
     }
-    return res.status(200).json({ error: { message: data.error?.message || 'No response from Gemini' } });
+    return res.status(200).json({ error: { message: data.error?.message || 'No response' } });
   } catch(err) {
     console.log('Error:', err.message);
     return res.status(500).json({ error: err.message });
