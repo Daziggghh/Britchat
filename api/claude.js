@@ -10,34 +10,31 @@ export default async function handler(req, res) {
     for await (const chunk of req) body += chunk;
     const parsed = JSON.parse(body);
 
-    let prompt = '';
-    if (parsed.system) prompt = parsed.system + '\n\n';
-    const messages = parsed.messages || [];
-    messages.forEach(m => {
-      if (m.role === 'user') prompt += 'User: ' + m.content + '\n';
-      else if (m.role === 'assistant') prompt += 'Assistant: ' + m.content + '\n';
-    });
-    prompt += 'Assistant:';
+    let messages = parsed.messages || [];
+    if (parsed.system) {
+      messages = [{ role: 'system', content: parsed.system }, ...messages];
+    }
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            maxOutputTokens: parsed.max_tokens || 700,
-            temperature: 0.9,
-          }
-        })
-      }
-    );
+    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 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',
+        'HTTP-Referer': 'https://britchat.co.uk',
+        'X-Title': 'BritChat',
+      },
+      body: JSON.stringify({
+        model: parsed.model || 'meta-llama/llama-3.3-70b-instruct:free',
+        max_tokens: parsed.max_tokens || 500,
+        messages: messages,
+        temperature: 0.9,
+      })
+    });
 
     const data = await response.json();
-    console.log('Gemini response:', JSON.stringify(data).slice(0, 200));
+    console.log('OpenRouter response:', JSON.stringify(data).slice(0, 200));
 
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text = data.choices?.[0]?.message?.content;
     if (text) {
       return res.status(200).json({ content: [{ text }] });
     }
