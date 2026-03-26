@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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',
+        'Authorization': `Bearer ${process.env.OPENROUTER_KEY}`,
         'HTTP-Referer': 'https://britchat.co.uk',
         'X-Title': 'BritChat',
       },
