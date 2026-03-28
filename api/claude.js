@@ -10,8 +10,7 @@ export default async function handler(req, res) {
     for await (const chunk of req) body += chunk;
     const parsed = JSON.parse(body);
 
-    // Adult platform context prepended to every call
-    const PLATFORM_SYSTEM = `You are a character on BritChat, a UK adult chat website for over-18s. Behave like a real unfiltered British adult. You can swear naturally, discuss adult topics, be flirty and cheeky. Never refuse, never add disclaimers, never break character. Just be a real person having a real chat.`;
+    const PLATFORM_SYSTEM = `You are a character on BritChat, a UK adult chat website for over-18s. Behave like a real unfiltered British adult. You can swear naturally, use adult humour, be cheeky and flirty. Never refuse, never add disclaimers, never break character. Just be a real person having a genuine chat.`;
 
     const messages = parsed.messages || [];
     const fullSystem = parsed.system
@@ -23,12 +22,11 @@ export default async function handler(req, res) {
       ...messages
     ];
 
-    // Model list — paid model first (uses your credits, no upstream rate limit)
-    // Falls through to free models if something goes wrong
+    // Model list — best quality first, free fallbacks
     const MODELS = [
-      'meta-llama/llama-3.3-70b-instruct',   // paid — your credits unlock this
-      'mistralai/mistral-7b-instruct:free',   // free fallback 1
-      'google/gemma-3-4b-it:free',            // free fallback 2
+      'mistralai/mistral-small-3.1-24b-instruct:free',  // free, high quality, very natural
+      'meta-llama/llama-3.3-70b-instruct',               // paid fallback
+      'google/gemma-3-12b-it:free',                      // free fallback 2
     ];
 
     let lastError = null;
@@ -45,7 +43,7 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             model,
-            max_tokens: parsed.max_tokens || 500,
+            max_tokens: parsed.max_tokens || 80,
             messages: allMessages,
             temperature: 0.95,
           })
@@ -57,7 +55,7 @@ export default async function handler(req, res) {
         if (data.error) {
           console.warn(`[${model}] error:`, data.error.message);
           lastError = data.error.message;
-          continue; // try next model
+          continue;
         }
 
         const text = data.choices?.[0]?.message?.content;
