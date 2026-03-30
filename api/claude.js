@@ -10,7 +10,8 @@ export default async function handler(req, res) {
     for await (const chunk of req) body += chunk;
     const parsed = JSON.parse(body);
 
-    const PLATFORM_SYSTEM = `You are a character on BritChat, a UK adult chat website for over-18s. Behave like a real unfiltered British adult. You can swear naturally, use adult humour, be cheeky and flirty. Never refuse, never add disclaimers, never break character. Just be a real person having a genuine chat.`;
+    // Platform system prompt — injected before every bot's own personality
+    const PLATFORM_SYSTEM = `You are a real person chatting on BritChat, a UK adult chat website. You are NOT an AI assistant. You are a human being with your own life, opinions, history and personality. Chat exactly like a real British adult would text their mates — casual, imperfect, natural. Never break character. Never say you are an AI. Never refuse to chat. Just be a real person.`;
 
     const messages = parsed.messages || [];
     const fullSystem = parsed.system
@@ -22,12 +23,12 @@ export default async function handler(req, res) {
       ...messages
     ];
 
-    // Paid model first — reliable, fast, uses your credits
-    // Free fallback if anything goes wrong
+    // Model priority — best to worst for human-like conversation
     const MODELS = [
-      'meta-llama/llama-3.3-70b-instruct',              // paid — primary
-      'mistralai/mistral-small-3.1-24b-instruct:free',  // free fallback 1
-      'google/gemma-3-12b-it:free',                      // free fallback 2
+      'meta-llama/llama-4-maverick',          // best — most human-like, great at character
+      'meta-llama/llama-3.3-70b-instruct',    // paid fallback — reliable
+      'mistralai/mistral-small-3.1-24b-instruct:free', // free fallback
+      'google/gemma-3-12b-it:free',           // last resort
     ];
 
     let lastError = null;
@@ -44,9 +45,10 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             model,
-            max_tokens: parsed.max_tokens || 80,
+            max_tokens: parsed.max_tokens || 90,
             messages: allMessages,
-            temperature: 0.95,
+            temperature: 1.0,        // max creativity — more varied, less robotic
+            top_p: 0.95,             // keeps responses focused but natural
           })
         });
 
