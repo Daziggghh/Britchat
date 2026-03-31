@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+  <!-- Purple glow left -->
+  <ellipse cx="240" cy="315" rx="400" ry="300" fill="#7c6aff" opacity="0.12"/>
+  <!-- Pink glow right -->
+  <ellipse cx="960" cy="180" rx="350" ry="250" fill="#ff6ab0" opacity="0.08"/>
+
+  <!-- BC favicon large -->
+  <rect x="80" y="180" width="180" height="150" rx="32" fill="#7c6aff"/>
+  <rect x="80" y="180" width="18" height="150" rx="9" fill="#ff6ab0"/>
+  <rect x="80" y="255" width="18" height="75" rx="0" fill="#ff6ab0"/>
+  <rect x="80" y="293" width="18" height="37" rx="9" fill="#ff6ab0"/>
+  <polygon points="112,328 88,372 148,328" fill="#7c6aff"/>
+  <!-- B -->
+  <rect x="110" y="200" width="14" height="76" rx="5" fill="white"/>
+  <rect x="110" y="200" width="46" height="14" rx="7" fill="white"/>
+  <rect x="110" y="234" width="44" height="14" rx="7" fill="white"/>
+  <rect x="110" y="262" width="46" height="14" rx="7" fill="white"/>
+  <rect x="148" y="200" width="14" height="48" rx="7" fill="white"/>
+  <rect x="148" y="248" width="14" height="28" rx="7" fill="white"/>
+  <!-- C -->
+  <rect x="172" y="200" width="42" height="14" rx="7" fill="white"/>
+  <rect x="172" y="262" width="42" height="14" rx="7" fill="white"/>
+  <rect x="172" y="200" width="14" height="76" rx="7" fill="white"/>
+
+  <!-- BritChat text -->
+  <text x="300" y="300" font-family="monospace" font-weight="700" font-size="88" fill="#7c6aff">Brit</text>
+  <text x="526" y="300" font-family="monospace" font-weight="700" font-size="88" fill="#ff6ab0">Chat</text>
+
+  <!-- Tagline -->
+  <text x="300" y="360" font-family="sans-serif" font-weight="400" font-size="32" fill="#888888">🇬🇧 The UK's favourite free live chat</text>
+
+  <!-- Feature pills -->
+  <rect x="300" y="400" width="160" height="44" rx="22" fill="#7c6aff" opacity="0.2"/>
+  <rect x="300" y="400" width="160" height="44" rx="22" fill="none" stroke="#7c6aff" stroke-width="1.5" opacity="0.6"/>
+  <text x="380" y="428" font-family="sans-serif" font-size="22" fill="#7c6aff" text-anchor="middle">50+ Rooms</text>
+
+  <rect x="476" y="400" width="150" height="44" rx="22" fill="#ff6ab0" opacity="0.15"/>
+  <rect x="476" y="400" width="150" height="44" rx="22" fill="none" stroke="#ff6ab0" stroke-width="1.5" opacity="0.6"/>
+  <text x="551" y="428" font-family="sans-serif" font-size="22" fill="#ff6ab0" text-anchor="middle">Free Games</text>
+
+  <rect x="642" y="400" width="150" height="44" rx="22" fill="#6affda" opacity="0.12"/>
+  <rect x="642" y="400" width="150" height="44" rx="22" fill="none" stroke="#6affda" stroke-width="1.5" opacity="0.5"/>
+  <text x="717" y="428" font-family="sans-serif" font-size="22" fill="#6affda" text-anchor="middle">Live Chat</text>
+
+  <rect x="808" y="400" width="160" height="44" rx="22" fill="#ffd166" opacity="0.12"/>
+  <rect x="808" y="400" width="160" height="44" rx="22" fill="none" stroke="#ffd166" stroke-width="1.5" opacity="0.5"/>
+  <text x="888" y="428" font-family="sans-serif" font-size="22" fill="#ffd166" text-anchor="middle">100% Free</text>
+
+  <!-- URL -->
+  <text x="600" y="570" font-family="monospace" font-size="28" fill="#555555" text-anchor="middle">britchat.co.uk</text>
+</svg>
